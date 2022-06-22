@@ -20,18 +20,18 @@ services:
     networks:
       - "nx"
 
-  redis:
-    image: redis:alpine
-    restart: always
-    networks:
-      - "nx"
+  # redis:
+  #   image: redis:alpine
+  #   restart: always
+  #   networks:
+  #     - "nx"
 
   nextcloud:
     image: nextcloud:fpm-alpine
     restart: always
     depends_on:
       - db
-      - redis
+      # - redis
     volumes:
       - nextcloud:/var/www/html
     environment:
@@ -41,9 +41,9 @@ services:
       - POSTGRES_HOST=db
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin
-      - REDIS_HOST_PASSWORD=
-      - REDIS_HOST=redis
-      - NEXTCLOUD_TRUSTED_DOMAINS=fancyguysdev.de
+      # - REDIS_HOST_PASSWORD=
+      # - REDIS_HOST=redis
+      - NEXTCLOUD_TRUSTED_DOMAINS=fancyguysdev.de localhost
     networks:
       - "nx"
 
