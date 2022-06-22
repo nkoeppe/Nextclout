@@ -33,7 +33,7 @@ services:
       - db
       - redis
     volumes:
-      - nextcloud:/var/www/html
+      - nextcloud
     environment:
       - POSTGRES_DB=nextcloud_db
       - POSTGRES_USER=postgres
@@ -59,8 +59,8 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    volumes_from:
       - nextcloud
+
     networks:
       - "nx"
 
@@ -69,6 +69,9 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+volumes:
+  - nextcloud:/var/www/html
+
 networks:
   nx:
     external: true
