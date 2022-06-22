@@ -1,8 +1,8 @@
 version: '3.8'
 
 volumes:
-  nextcloud:
-  db:
+  - nextcloud:/var/www/html
+  - db:
 
 
 services:
@@ -69,8 +69,6 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-volumes:
-  - nextcloud:/var/www/html
 
 networks:
   nx:
