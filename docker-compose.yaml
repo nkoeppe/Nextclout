@@ -50,8 +50,8 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "81:80"
-      - "8443:443"
+      - "80:80"
+      - "443:443"
     depends_on:
       - nextcloud
     volumes:
@@ -61,6 +61,8 @@ services:
       - ./certbot/www:/var/www/certbot
       - nextcloud:/var/www/html
 
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
     networks:
       - "nx"
 
@@ -69,6 +71,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 
 networks:
   nx:
