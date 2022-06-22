@@ -50,7 +50,7 @@ services:
     image: nginx:stable-alpine
     restart: always
     ports:
-      - "80:80"
+      - "81:80"
       - "8443:443"
     depends_on:
       - nextcloud
