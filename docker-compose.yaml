@@ -27,7 +27,7 @@ services:
       - "nx"
 
   nextcloud:
-    image: nextcloud:latest
+    image: nextcloud:fpm-alpine
     restart: always
     depends_on:
       - db
