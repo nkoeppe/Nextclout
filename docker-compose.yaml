@@ -72,4 +72,4 @@ services:
 
 networks:
   nx:
-    external: true
+    external: false
