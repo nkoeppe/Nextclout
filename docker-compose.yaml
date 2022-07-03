@@ -37,21 +37,37 @@ services:
       - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.fancyguysdev.de
     networks:
       - "nx"
-  nginx:
+
+  nginx_nextcloud:
+    image: nginx:stable-alpine
+    restart: always
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    depends_on:
+      - nextcloud
+    volumes:
+      - ./nginx/app.nextcloud.conf:/etc/nginx/conf.d/app.conf
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - nextcloud:/var/www/html
+
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+    networks:
+      - "nx"
+
+  nginx_virtual_host:
     image: nginx:stable-alpine
     restart: always
     ports:
       - "80:80"
       - "443:443"
     depends_on:
-      - nextcloud
+      - nginx_nextcloud
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/www:/var/www/certbot
-      - nextcloud:/var/www/html
-
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+      - ./nginx/app.conf:/etc/nginx/conf.d/app.conf
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
     networks:
       - "nx"
