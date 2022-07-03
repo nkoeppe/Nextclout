@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(fancyguysdev.de www.fancyguysdev.de)
+domains=(nextcloud.fancyguysdev.de fancyguysdev.de www.fancyguysdev.de)
 rsa_key_size=4096
 data_path="./certbot"
 email="n.koeppe@gmx.de" # Adding a valid address is strongly recommended
