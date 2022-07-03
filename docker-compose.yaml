@@ -34,7 +34,7 @@ services:
       - POSTGRES_HOST=db
       - NEXTCLOUD_ADMIN_USER=admin
       - NEXTCLOUD_ADMIN_PASSWORD=admin
-      - NEXTCLOUD_TRUSTED_DOMAINS=fancyguysdev.de
+      - NEXTCLOUD_TRUSTED_DOMAINS=nextcloud.fancyguysdev.de
     networks:
       - "nx"
   nginx:
